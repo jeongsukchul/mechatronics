@@ -5,11 +5,11 @@ def main():
     # Video Capture(Stream) Initialization
     cap = cv2.VideoCapture(0)  # 0:from camera
 
-    if cap.isOpened():  # Check the capture object is opened
-        ##
-        frame_width = round(cap.get(cv2.CAP_PROP_FRAME_WIDTH))  # int `width`
-        frame_height = round(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))  # int `height`
-        fps = cap.get(cv2.CAP_PROP_FPS)  # frame rate
+    if not cap.isOpened() : # Check the capture object is opened
+        return
+    frame_width = round(cap.get(cv2.CAP_PROP_FRAME_WIDTH))  # int `width`
+    frame_height = round(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))  # int `height`
+    fps = cap.get(cv2.CAP_PROP_FPS)  # frame rate
         ##
 
     # Video Writer Initialization
