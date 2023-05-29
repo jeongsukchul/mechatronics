@@ -20,18 +20,12 @@ class Servo:
         self.servo1.angle = 0
         self.servo2.angle = 0
         self.servo3.angle = 0
-    def move(self,n,sig):
-        if n==1:
-            servo = self.servo1
-        if n==2:
-            servo = self.servo2
-        if n==3:
-            servo = self.servo3
+    def move(self,angle1,angle2,angle3):
+        self.servo1.angle = angle1
+        self.servo2.angle = angle2
+        self.servo3.angle = angle3
 
-        if sig==1:
-            servo.angle = 180
-        else:
-            servo.angle = 0
+        time.sleep(500)
 
         # we have to update this for the interrupt
     def turnoff(self):
@@ -39,3 +33,8 @@ class Servo:
         self.servo2.detach()
         self.servo3.detach()
 
+if __name__ == '__main__':
+    servo = Servo(22,27,32)
+    servo.move(100,150,179)
+    servo.move(50,179,100)
+    servo.move(80,30,50)
