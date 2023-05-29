@@ -34,7 +34,7 @@ class Servo:
         self.servo3.detach()
 
 if __name__ == '__main__':
-    servo = Servo(22,27,32)
+    servo = Servo(17,27,22)
     servo.move(100,150,179)
     servo.move(50,179,100)
     servo.move(80,30,50)
