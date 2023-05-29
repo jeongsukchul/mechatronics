@@ -1,12 +1,15 @@
 import cv2
 import serial,time
-
+import servo
 face_cascade= cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 cap=cv2.VideoCapture(0)
 #fourcc= cv2.VideoWriter_fourcc(*'XVID')
-ArduinoSerial=serial.Serial('com8',9600,timeout=0.1)
+#ArduinoSerial=serial.Serial('com8',9600,timeout=0.1)
 #out= cv2.VideoWriter('face detection4.avi',fourcc,20.0,(640,480))
 time.sleep(1)
+
+servo = servo.Servo(17,27,22)
+
 
 while cap.isOpened():
     ret, frame= cap.read()
@@ -17,9 +20,8 @@ while cap.isOpened():
     if len(faces):
         [x, y,w, h] = faces[0]
         #sending coordinates to Arduino
-        string='X{0:d}Y{1:d}'.format((x+w//2),(y+h//2))
-        print(string)
-        ArduinoSerial.write(string.encode('utf-8'))
+        servo.move(min(max((x+w)//2*180//600,1),179),min(max((x+w)//2*180//600,1),179),90)
+        #ArduinoSerial.write(string.encode('utf-8'))
         #plot the center of the face
         cv2.circle(frame,(x+w//2,y+h//2),2,(0,255,0),2)
         #plot the roi
@@ -32,7 +34,7 @@ while cap.isOpened():
     cv2.imshow('img',frame)
     #cv2.imwrite('output_img.jpg',frame)
     '''for testing purpose'''
-    read= str(ArduinoSerial.readline(ArduinoSerial.inWaiting()))
+    #read= str(ArduinoSerial.readline(ArduinoSerial.inWaiting()))
     time.sleep(0.05)
     print('data from arduino:'+read)
     # press q to Quit
